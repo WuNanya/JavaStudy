@@ -1,0 +1,67 @@
+如何创建Thread对象？
+继承Thread的类来实现，覆写run方法；
+实现Runnable接口的类，覆写run方法
+class Mythread extends Thread{
+    @Override
+    public void run() {
+        super.run();
+    }
+}
+
+class MyRunnable implements Runnable{
+    @Override
+    public void run() {
+        
+    }
+}
+
+public class ThreadCreateDemo01 {
+    public static void main(String[] args) {
+        //第一种方式，直接实现一个覆写了run的Thread类
+        Thread t1 = new Mythread();
+        //第二种，将实现了Runnable接口的类传入Thread的构造方法
+        Thread t2 = new Thread(new MyRunnable());
+        
+        //第一种方法的匿名类
+        Thread t3 = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+            }
+        };
+        //第二种方法的构造方法
+        Thread t4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+    }
+}
+
+
+多线程实例
+class MyThread extends Thread{
+    private int n = 0;
+    @Override
+    public void run() {
+        while(n < 50){
+            System.out.println(n);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            n++;
+        }
+    }
+}
+
+public class ThreadDemo03 {
+    public static void main(String[] args) {
+        Thread t1 = new MyThread();
+        Thread t2 = new MyThread();
+        t1.start();
+        t2.start();
+    }
+}
+
